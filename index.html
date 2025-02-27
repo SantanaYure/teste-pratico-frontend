@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeTalent - Tabela de Funcionários</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <!-- Header da aplicação -->
+  <header class="header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="BeTalent Logo" class="logo-image">
+    </div>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="main-content">
+    <!-- Cabeçalho da página com título e pesquisa em extremidades opostas -->
+    <div class="page-header">
+      <h1 class="page-title">Funcionários</h1>
+      
+      <!-- Barra de pesquisa -->
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Pesquisar">
+        <button class="search-button" aria-label="Buscar">
+          <img src="assets/icons/search.svg" alt="Ícone de busca" class="search-icon">
+        </button>
+      </div>
+    </div>
+
+    <!-- Estado de carregamento -->
+    <div id="loading-state" class="loading">Carregando...</div>
+    
+    <!-- Estado de erro -->
+    <div id="error-state" class="error" style="display: none;">
+      Erro ao carregar dados: <span id="error-message"></span>
+    </div>
+
+    <!-- Tabela para desktop -->
+    <div id="desktop-view" class="employee-table-container" style="display: none;">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th>FOTO</th>
+            <th>NOME</th>
+            <th>CARGO</th>
+            <th>DATA DE ADMISSÃO</th>
+            <th>TELEFONE</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Os dados da tabela serão inseridos aqui via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Lista para mobile -->
+    <div id="mobile-view" class="employee-list-mobile" style="display: none;">
+      <div class="table-header-mobile">
+        <div class="header-cell">FOTO</div>
+        <div class="header-cell">NOME</div>
+        <div class="header-cell">•</div>
+      </div>
+      <div id="mobile-list">
+        <!-- Os cartões serão inseridos aqui via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Mensagem "Nenhum funcionário encontrado" -->
+    <div id="no-results" class="no-results" style="display: none;">
+      Nenhum funcionário encontrado
+    </div>
+  </main>
+
+  <script src="js/scripts.js"></script>
+</body>
+</html>
