@@ -1,4 +1,3 @@
-// Elementos do DOM
 const loadingState = document.getElementById('loading-state');
 const errorState = document.getElementById('error-state');
 const errorMessage = document.getElementById('error-message');
@@ -9,15 +8,14 @@ const mobileList = document.getElementById('mobile-list');
 const noResults = document.getElementById('no-results');
 const searchInput = document.getElementById('search-input');
 
-// Estado da aplicação
 let employees = [];
 let filteredEmployees = [];
 let isMobile = window.innerWidth <= 768;
 
 /**
- * Formata uma data no formato DD/MM/YYYY
- * @param {string} dateString - Data no formato ISO ou outra string de data válida
- * @returns {string} Data formatada
+ * 
+ * @param {string} dateString - 
+ * @returns {string} 
  */
 function formatDate(dateString) {
   if (!dateString) return '';
@@ -25,9 +23,9 @@ function formatDate(dateString) {
   try {
     const date = new Date(dateString);
     
-    // Verificar se a data é válida
+
     if (isNaN(date.getTime())) {
-      return dateString; // Retorna a string original se não for uma data válida
+      return dateString;
     }
     
     const day = date.getDate().toString().padStart(2, '0');
@@ -42,29 +40,29 @@ function formatDate(dateString) {
 }
 
 /**
- * Formata um número de telefone no padrão +XX (XX) XXXXX-XXXX
- * @param {string} phoneNumber - Número de telefone
- * @returns {string} Telefone formatado
+ * 
+ * @param {string} phoneNumber - 
+ * @returns {string} 
  */
 function formatPhone(phoneNumber) {
   if (!phoneNumber) return '';
   
   try {
-    // Remove todos os caracteres não numéricos
+
     const cleanNumber = phoneNumber.replace(/\D/g, '');
     
-    // Se o número tiver menos de 10 dígitos, retorna o original
+
     if (cleanNumber.length < 10) {
       return phoneNumber;
     }
     
-    // Formato padrão brasileiro com código de país +55
-    if (cleanNumber.length === 11) { // Com 9º dígito
+
+    if (cleanNumber.length === 11) { 
       return `+55 (${cleanNumber.substring(0, 2)}) ${cleanNumber.substring(2, 7)}-${cleanNumber.substring(7)}`;
-    } else if (cleanNumber.length === 10) { // Sem 9º dígito
+    } else if (cleanNumber.length === 10) { 
       return `+55 (${cleanNumber.substring(0, 2)}) ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6)}`;
-    } else if (cleanNumber.length > 11) { // Número internacional
-      // Assumindo que os primeiros 2 dígitos são o código do país
+    } else if (cleanNumber.length > 11) { 
+
       const countryCode = cleanNumber.substring(0, 2);
       const areaCode = cleanNumber.substring(2, 4);
       const firstPart = cleanNumber.substring(4, 9);
@@ -73,7 +71,7 @@ function formatPhone(phoneNumber) {
       return `+${countryCode} (${areaCode}) ${firstPart}-${lastPart}`;
     }
     
-    // Fallback para outros formatos
+
     return phoneNumber;
   } catch (error) {
     console.error('Erro ao formatar telefone:', error);
@@ -81,14 +79,12 @@ function formatPhone(phoneNumber) {
   }
 }
 
-/**
- * Busca os dados de funcionários da API ou do arquivo db.json
- */
+
 async function fetchEmployees() {
   try {
     showLoading();
     
-    // Tenta obter dados da API primeiro - corrigido para '/employees'
+
     try {
       const response = await fetch('http://localhost:3000/employees');
       
@@ -105,7 +101,7 @@ async function fetchEmployees() {
       console.log('API não disponível, tentando arquivo local db.json');
     }
     
-    // Se não conseguir obter da API, tenta carregar o arquivo local
+
     try {
       const response = await fetch('db/db.json');
       
@@ -115,14 +111,14 @@ async function fetchEmployees() {
       
       const data = await response.json();
       
-      // Verificar se o arquivo tem a estrutura esperada: employees
+
       if (data.employees && Array.isArray(data.employees)) {
         employees = data.employees;
       } else if (Array.isArray(data)) {
-        // Caso o JSON seja diretamente um array
+
         employees = data;
       } else {
-        // Se não tiver a estrutura esperada, assume array vazio
+
         console.error('Formato de dados inesperado');
         employees = [];
       }
@@ -139,9 +135,6 @@ async function fetchEmployees() {
   }
 }
 
-/**
- * Filtra os funcionários com base na consulta de pesquisa
- */
 function filterEmployees() {
   const query = searchInput.value.toLowerCase();
   
@@ -160,9 +153,6 @@ function filterEmployees() {
   renderEmployees();
 }
 
-/**
- * Renderiza os funcionários na interface com base no tamanho da tela
- */
 function renderEmployees() {
   if (filteredEmployees.length === 0) {
     hideDesktopView();
@@ -180,14 +170,12 @@ function renderEmployees() {
   }
 }
 
-/**
- * Renderiza a visualização desktop (tabela)
- */
+
 function renderDesktopView() {
   tableBody.innerHTML = '';
   
   filteredEmployees.forEach(employee => {
-    // Verifica se a imagem é uma URL externa ou um caminho relativo
+
     const imageSrc = employee.image.startsWith('http') 
       ? employee.image 
       : `assets/images/${employee.image}`;
@@ -210,15 +198,12 @@ function renderDesktopView() {
   hideMobileView();
 }
 
-/**
- * Renderiza a visualização mobile (cards)
- */
+
 function renderMobileView() {
   mobileList.innerHTML = '';
   
   filteredEmployees.forEach(employee => {
-    // CORREÇÃO: Adicionando a mesma verificação de caminho de imagem que existe no renderDesktopView
-    const imageSrc = employee.image.startsWith('http') 
+     const imageSrc = employee.image.startsWith('http') 
       ? employee.image 
       : `assets/images/${employee.image}`;
     
@@ -248,15 +233,15 @@ function renderMobileView() {
 }
 
 /**
- * Alterna a exibição dos detalhes do card
- * @param {number} employeeId - ID do funcionário
+ * 
+ * @param {number} employeeId 
  */
 function toggleCardDetails(employeeId) {
   const card = document.querySelector(`.employee-card[data-id="${employeeId}"]`);
   const existingDetails = card.querySelector('.card-details');
   const expandIcon = card.querySelector('.expand-icon');
   
-  // Se já existir um detalhe, remove
+
   if (existingDetails) {
     card.removeChild(existingDetails);
     expandIcon.innerHTML = `
@@ -267,7 +252,7 @@ function toggleCardDetails(employeeId) {
     return;
   }
   
-  // Caso contrário, adiciona os detalhes
+
   const employee = employees.find(emp => emp.id === employeeId);
   
   if (employee) {
@@ -293,15 +278,12 @@ function toggleCardDetails(employeeId) {
     
     expandIcon.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 12 8" fill="none">
-  <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#0950FF"/>
-</svg>
+        <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#0950FF"/>
+      </svg>
     `;
   }
 }
 
-/**
- * Funções para controlar a exibição dos estados da interface
- */
 function showLoading() {
   loadingState.style.display = 'block';
   errorState.style.display = 'none';
@@ -347,14 +329,11 @@ function hideNoResults() {
   noResults.style.display = 'none';
 }
 
-/**
- * Verifica se a visualização deve ser mobile ou desktop
- */
+
 function checkViewportSize() {
   const wasMobile = isMobile;
   isMobile = window.innerWidth <= 768;
   
-  // Se houver mudança no tipo de visualização, renderiza novamente
   if (wasMobile !== isMobile) {
     renderEmployees();
   }
@@ -365,5 +344,4 @@ window.addEventListener('load', fetchEmployees);
 window.addEventListener('resize', checkViewportSize);
 searchInput.addEventListener('input', filterEmployees);
 
-// Adiciona função toggleCardDetails ao objeto window para poder ser chamada pelo onclick
 window.toggleCardDetails = toggleCardDetails;

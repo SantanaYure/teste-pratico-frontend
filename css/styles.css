@@ -216,7 +216,9 @@
     flex: 1;
     font-weight: 500;
     font-size: 14px;
+    justify-content: center;
   }
+
 
   .header-cell:first-child {
     flex: 0 0 40px;
