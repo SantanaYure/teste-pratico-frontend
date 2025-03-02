@@ -217,6 +217,11 @@ function renderMobileView() {
   mobileList.innerHTML = '';
   
   filteredEmployees.forEach(employee => {
+    // CORREÇÃO: Adicionando a mesma verificação de caminho de imagem que existe no renderDesktopView
+    const imageSrc = employee.image.startsWith('http') 
+      ? employee.image 
+      : `assets/images/${employee.image}`;
+    
     const card = document.createElement('div');
     card.className = 'employee-card';
     card.dataset.id = employee.id;
@@ -224,7 +229,7 @@ function renderMobileView() {
     card.innerHTML = `
       <div class="card-header" onclick="toggleCardDetails(${employee.id})">
         <div class="employee-photo-container">
-          <img src="${employee.image}" alt="Foto de ${employee.name}" class="employee-photo">
+          <img src="${imageSrc}" alt="Foto de ${employee.name}" class="employee-photo">
         </div>
         <div class="employee-name">${employee.name}</div>
         <div class="expand-icon">

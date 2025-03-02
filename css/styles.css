@@ -217,6 +217,16 @@
     font-weight: 500;
     font-size: 14px;
   }
+
+  .header-cell:first-child {
+    flex: 0 0 40px;
+    margin-right: 16px;
+  }
+
+  .header-cell:nth-child(2) {
+    flex: 1;
+    padding-left: 0;
+  }
   
   .header-cell:last-child {
     flex: 0 0 40px;
