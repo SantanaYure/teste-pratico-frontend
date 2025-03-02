@@ -233,8 +233,8 @@ function renderMobileView() {
         </div>
         <div class="employee-name">${employee.name}</div>
         <div class="expand-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
-            <path d="M1.41 0.59L6 5.17L10.59 0.59L12 2L6 8L0 2L1.41 0.59Z" fill="#9E9E9E"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 12 8" fill="none">
+            <path d="M1.41 0.59L6 5.17L10.59 0.59L12 2L6 8L0 2L1.41 0.59Z" fill="#0950FF"/>
           </svg>
         </div>
       </div>
@@ -292,9 +292,9 @@ function toggleCardDetails(employeeId) {
     card.appendChild(details);
     
     expandIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
-        <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#9E9E9E"/>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 12 8" fill="none">
+  <path d="M1.41 7.41L6 2.83L10.59 7.41L12 6L6 0L0 6L1.41 7.41Z" fill="#0950FF"/>
+</svg>
     `;
   }
 }
