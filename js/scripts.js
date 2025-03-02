@@ -88,9 +88,9 @@ async function fetchEmployees() {
   try {
     showLoading();
     
-    // Tenta obter dados da API primeiro
+    // Tenta obter dados da API primeiro - corrigido para '/employees'
     try {
-      const response = await fetch('http://localhost:3000/users');
+      const response = await fetch('http://localhost:3000/employees');
       
       if (response.ok) {
         const data = await response.json();
@@ -115,15 +115,16 @@ async function fetchEmployees() {
       
       const data = await response.json();
       
-      // O arquivo db.json pode ter formato diferente, verifica se tem a propriedade 'employees'
+      // Verificar se o arquivo tem a estrutura esperada: employees
       if (data.employees && Array.isArray(data.employees)) {
         employees = data.employees;
-      } else if (data.users && Array.isArray(data.users)) {
-        // Tenta verificar se há uma propriedade 'users' como alternativa
-        employees = data.users;
+      } else if (Array.isArray(data)) {
+        // Caso o JSON seja diretamente um array
+        employees = data;
       } else {
-        // Se não tiver as propriedades esperadas, assume que o próprio conteúdo é o array
-        employees = Array.isArray(data) ? data : [];
+        // Se não tiver a estrutura esperada, assume array vazio
+        console.error('Formato de dados inesperado');
+        employees = [];
       }
       
       filteredEmployees = [...employees];
